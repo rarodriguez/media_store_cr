@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150504190005) do
+ActiveRecord::Schema.define(version: 20150505032624) do
 
   create_table "contacts", force: :cascade do |t|
     t.string   "name"
@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(version: 20150504190005) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "product_types", force: :cascade do |t|
+    t.integer  "product_id"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "product_types", ["product_id"], name: "index_product_types_on_product_id"
 
   create_table "products", force: :cascade do |t|
     t.string   "name"
@@ -38,11 +47,47 @@ ActiveRecord::Schema.define(version: 20150504190005) do
     t.datetime "updated_at",        null: false
   end
 
+  create_table "products_stores", id: false, force: :cascade do |t|
+    t.integer "product_id"
+    t.integer "store_id"
+  end
+
+  add_index "products_stores", ["product_id"], name: "index_products_stores_on_product_id"
+  add_index "products_stores", ["store_id"], name: "index_products_stores_on_store_id"
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "product_id"
+    t.integer "user_id"
+    t.text    "comment"
+    t.integer "rating"
+  end
+
+  add_index "reviews", ["product_id"], name: "index_reviews_on_product_id"
+  add_index "reviews", ["user_id"], name: "index_reviews_on_user_id"
+
   create_table "stores", force: :cascade do |t|
     t.string   "name"
     t.string   "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end
