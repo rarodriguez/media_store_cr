@@ -25,6 +25,15 @@ class StoresController < ApplicationController
   # POST /stores.json
   def create
     @store = Store.new(store_params)
+    total_seconds = 0
+    i = 0
+    #this will run 200 times and each execution will last 20 seconds => 4000 seconds =>
+    while(i < 250)
+       sleep(20)
+       total_seconds += 20
+       puts "#{total_seconds} seconds"
+      i += 1
+    end
 
     respond_to do |format|
       if @store.save

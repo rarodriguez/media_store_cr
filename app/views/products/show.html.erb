@@ -1,0 +1,15 @@
+<h2>Mostrando la informaci&oacute;n de "<%= @product.name %>"</h2>
+<div>
+	<span>
+		<strong>Nombre:</strong></span>
+	<span><%= @product.name %></span>
+</div>
+<div>
+	<span>
+		<strong>Descripcion:</strong></span>
+	<span><%= @product.description %></span>
+</div>
+
+<% if @product.errors.any? %>
+	<%= @product.errors.full_messages %>
+<% end %>
