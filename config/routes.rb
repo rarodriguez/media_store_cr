@@ -1,10 +1,18 @@
 Rails.application.routes.draw do
+  resources :contacts
+  resources :reviews
+  resources :products
+  resources :stores
+  resources :reviews
+  resources :stores
+  resources :products
+  resources :products
   devise_for :users
   resources :contacts
   resources :stores
   get 'products/:id', to: 'products#show'
   get 'productos/:id/:mensaje', to: 'products#my_action'
-  root to: "stores#index"
+  root to: "home#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

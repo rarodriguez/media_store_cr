@@ -19,11 +19,12 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-en:
-  main_title: "Media Store CR - Best online store in Costa Rica"
+es:
+  main_title: "Media Store CR - La mejor tienda digital de Costa Rica"
   admin_menu:
-    home: "Main"
-    products: "Products"
-    stores: "Stores"
-    contacts: "Contacts"
-    reviews: "Reviews"
+    home: "Principal"
+    products: "Productos"
+    stores: "Tiendas"
+    contacts: "Contactos"
+    reviews: "Comentarios"
+
