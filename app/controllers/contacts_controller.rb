@@ -15,7 +15,7 @@ class ContactsController < ApplicationController
 
   # GET /contacts/new
   def new
-    @contact = Contact.new
+    #@contact = Contact.new
     puts "HOLA!!!!"
     puts @stores.inspect
   end
