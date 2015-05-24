@@ -1,74 +1,28 @@
 class StoresController < ApplicationController
-  before_action :set_store, only: [:show, :edit, :update, :destroy]
+  layout 'application_public'
 
-  # GET /stores
-  # GET /stores.json
   def index
     @stores = Store.all
+    @default_store = @stores.first
   end
 
-  # GET /stores/1
-  # GET /stores/1.json
-  def show
+  def add_cart
+    product = Product.find(params[:id])
+    session[:cart] = {} if session[:cart].blank?
+    if session[:cart].has_key?(product.id.to_s)
+      session[:cart][product.id.to_s] += 1
+    else
+      session[:cart][product.id.to_s] = 1
+    end
+    redirect_to root_path, notice: "Producto '#{product.name}' agregado al carrito"
   end
 
-  # GET /stores/new
-  def new
-    @store = Store.new
-  end
-
-  # GET /stores/1/edit
-  def edit
-  end
-
-  # POST /stores
-  # POST /stores.json
-  def create
-    @store = Store.new(store_params)
-
-    respond_to do |format|
-      if @store.save
-        format.html { redirect_to @store, notice: 'Store was successfully created.' }
-        format.json { render :show, status: :created, location: @store }
-      else
-        format.html { render :new }
-        format.json { render json: @store.errors, status: :unprocessable_entity }
-      end
+  def view_cart
+    cart_elements = session[:cart] || {}
+    @elements = {}
+    cart_elements.each_pair do |elem, count|
+      @elements[elem] = {product: Product.where(id: elem).first, count: count}
     end
   end
 
-  # PATCH/PUT /stores/1
-  # PATCH/PUT /stores/1.json
-  def update
-    respond_to do |format|
-      if @store.update(store_params)
-        format.html { redirect_to @store, notice: 'Store was successfully updated.' }
-        format.json { render :show, status: :ok, location: @store }
-      else
-        format.html { render :edit }
-        format.json { render json: @store.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /stores/1
-  # DELETE /stores/1.json
-  def destroy
-    @store.destroy
-    respond_to do |format|
-      format.html { redirect_to stores_url, notice: 'Store was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_store
-      @store = Store.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def store_params
-      params.require(:store).permit(:name, :url)
-    end
 end

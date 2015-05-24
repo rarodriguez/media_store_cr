@@ -1,20 +1,19 @@
 Rails.application.routes.draw do
-  scope '/admin' do
-    resources :reviews
-    resources :products
-    resources :contacts
+
+  namespace :admin do
     resources :stores
+    resources :products
+    resources :reviews
+    resources :contacts
   end
+
   devise_for :users
-  root to: "public/stores#index"
+  root to: "stores#index"
+  get 'my_cart' => 'stores#view_cart', as: 'view_cart'
 
-  get 'my_cart' => 'public/stores#view_cart', as: 'view_cart'
-
-  namespace :public do
-    resources :stores, only: :index do
-      member do
-        post 'add_to_cart' => 'stores#add_cart', as: 'add_to_cart'
-      end
+  resources :stores, only: :index do
+    member do
+      post 'add_to_cart' => 'stores#add_cart', as: 'add_to_cart'
     end
   end
 

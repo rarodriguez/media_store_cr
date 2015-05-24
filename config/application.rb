@@ -29,5 +29,21 @@ module MediaStoreCr
     #        :bucket => 'Sample_Bucket'
     #      }
     #    }
+
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance|
+      class_attr_index = html_tag.index 'class="'
+      if class_attr_index
+        # target only p's and span's with class error already there
+        error_class = if html_tag =~ /^<(p|label|span).*/
+                        ''
+                      else
+                        'field_with_errors '
+                      end
+
+        html_tag.insert class_attr_index + 7, error_class
+      else
+        html_tag.insert html_tag.index('>'), ' class="error"'
+      end
+    }
   end
 end

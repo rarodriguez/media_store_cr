@@ -52,3 +52,8 @@ group :development, :test do
   gem 'spring'
 end
 
+#Validators
+gem 'validate_url'
+gem 'email_validator'
+
+
