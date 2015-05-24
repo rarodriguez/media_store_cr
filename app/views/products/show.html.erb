@@ -24,7 +24,7 @@
   <dd><%= @product.downloads %></dd>
 
   <dt>Store:</dt>
-  <dd><%= @product.store_id %></dd>
+  <dd><%= @product.stores.collect{|s| s.name}.join(', ') if @product.stores.present? %></dd>
 
   <dt>Tags:</dt>
   <dd><%= @product.tags %></dd>

@@ -38,7 +38,7 @@
   <div class="form-group">
     <%= f.label :store_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.number_field :store_id, class: "form-control" %>
+      <%= select_tag :store_ids, options_from_collection_for_select(@stores, "id", "name"), multiple: true %>
     </div>
   </div>
   <div class="form-group">

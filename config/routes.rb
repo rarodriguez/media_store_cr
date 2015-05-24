@@ -1,10 +1,23 @@
 Rails.application.routes.draw do
-  resources :reviews
-  resources :products
-  resources :contacts
-  resources :stores
+  scope '/admin' do
+    resources :reviews
+    resources :products
+    resources :contacts
+    resources :stores
+  end
   devise_for :users
-  root to: "home#index"
+  root to: "public/stores#index"
+
+  get 'my_cart' => 'public/stores#view_cart', as: 'view_cart'
+
+  namespace :public do
+    resources :stores, only: :index do
+      member do
+        post 'add_to_cart' => 'stores#add_cart', as: 'add_to_cart'
+      end
+    end
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

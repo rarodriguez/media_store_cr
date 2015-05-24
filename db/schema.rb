@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150519031325) do
+ActiveRecord::Schema.define(version: 20150524050946) do
 
   create_table "contacts", force: :cascade do |t|
     t.string   "name"
@@ -37,7 +37,6 @@ ActiveRecord::Schema.define(version: 20150519031325) do
     t.text     "description"
     t.decimal  "price"
     t.integer  "downloads"
-    t.integer  "store_id"
     t.string   "tags"
     t.string   "small_description"
     t.string   "author"
