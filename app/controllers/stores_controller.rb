@@ -1,5 +1,6 @@
 class StoresController < ApplicationController
   layout 'application_public'
+  skip_before_filter :authenticate_user!
 
   def index
     @stores = Store.all
